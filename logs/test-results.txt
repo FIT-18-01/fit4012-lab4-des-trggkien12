@@ -1,0 +1,12 @@
+[PASS] Đủ các file/thư mục bắt buộc cơ bản.
+[PASS] Thư mục tests/ có ít nhất 5 file test.
+[PASS] README.md có các mục tối thiểu theo yêu cầu.
+[PASS] report-1page.md có đủ các mục tối thiểu.
+[PASS] Có file minh chứng trong logs/.
+[PASS] Có dấu hiệu negative tests cho tamper và wrong key.
+[PASS] Có dấu hiệu nhập dữ liệu từ bàn phím trong source code.
+[PASS] Không còn placeholder TODO_STUDENT trong README/report/tests.
+[PASS] Đã có file thực thi sau bước build.
+[SUCCESS] Repo đáp ứng bộ kiểm tra nộp bài cơ bản cho FIT4012 Lab 4.
+[PASS] Q2 đạt: có nhập từ bàn phím và xử lý multi-block + zero padding đúng theo vector kiểm thử.
+[PASS] Q4 đạt: TripleDES encrypt/decrypt đúng theo vector kiểm thử.

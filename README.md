@@ -56,54 +56,26 @@ cmake --build build
 ```
 
 ## 3. Input / Đầu vào
-
-TODO_STUDENT: Mô tả rõ đầu vào của chương trình sau khi em hoàn thiện bài lab.
-
-Gợi ý nên nêu:
-- plaintext đang được nhập như thế nào
-- key đang được nhập như thế nào
-- chương trình nhận 1 block hay nhiều block
-- định dạng dữ liệu là chuỗi bit, chuỗi ký tự hay file
+Chương trình nhận đầu vào trực tiếp từ luồng tiêu chuẩn (`stdin`), phù hợp cho việc đánh giá tự động.
+- Chế độ chạy (mode) được nhập đầu tiên (1: DES Encrypt, 2: DES Decrypt, 3: 3DES Encrypt, 4: 3DES Decrypt).
+- Dữ liệu `plaintext` hoặc `ciphertext` được nhập dưới dạng chuỗi bit nhị phân (ví dụ: `00010...`). Hỗ trợ độ dài đa khối (lớn hơn 64 bit).
+- `key` (Khóa) được nhập dạng chuỗi bit nhị phân dài đúng 64 bit. Đối với Triple DES, cần nhập lần lượt 3 khóa K1, K2, K3 cách nhau bởi dòng mới.
 
 ## 4. Output / Đầu ra
-
-TODO_STUDENT: Mô tả rõ đầu ra của chương trình.
-
-Gợi ý nên nêu:
-- ciphertext hiển thị ra sao
-- có in round keys hay không
-- có hỗ trợ giải mã hay không
-- với TripleDES thì đầu ra gồm những gì
+- Chương trình xử lý toán học tuần tự qua các round keys và in ra chuỗi bit nhị phân tương ứng với bản rõ hoặc bản mã (ciphertext/plaintext) qua `stdout`.
+- Có hỗ trợ in ra toàn bộ ciphertext thành chuỗi nhị phân dài liên tục cho chế độ đa khối.
+- TripleDES được hoàn thiện đầy đủ luồng thực thi chuẩn: Mã hóa (E-D-E) và Giải mã (D-E-D).
 
 ## 5. Padding đang dùng
-
-TODO_STUDENT: Giải thích cơ chế padding em dùng.
-
-Gợi ý:
-- nếu plaintext dài hơn 64 bit thì chia block như thế nào
-- nếu thiếu bit thì pad bằng `0` ra sao
-- hạn chế của zero padding là gì
-- vì sao cách này chỉ phù hợp cho bài học nhập môn, không phải thiết kế an toàn hoàn chỉnh trong thực tế
+Chương trình sử dụng cơ chế **Zero Padding**:
+- Trước khi mã hóa/giải mã, độ dài chuỗi đầu vào được kiểm tra. Nếu tổng số bit không chia hết cho 64 (kích thước chuẩn của một khối DES), chương trình sẽ tự động chèn thêm các ký tự `'0'` vào cuối cho đến khi khối cuối cùng đạt chuẩn 64 bit.
+- **Hạn chế:** Cách này tuy dễ hiểu và phù hợp cho việc học tập giao thức mật mã cơ bản, nhưng trong thực tế nó không an toàn do dễ bị tấn công Padding Oracle và không thể phân biệt được `0` gốc với `0` được đệm thêm.
 
 ## 6. Tests bắt buộc
-
-Repo này đã tạo sẵn **5 tên file test mẫu** để sinh viên điền nội dung:
-
-- `tests/test_des_sample.sh`
-- `tests/test_encrypt_decrypt_roundtrip.sh`
-- `tests/test_multiblock_padding.sh`
-- `tests/test_tamper_negative.sh`
-- `tests/test_wrong_key_negative.sh`
-
-Sinh viên phải tự hoàn thiện test và bổ sung minh chứng chạy.
+Repo này có đủ 5 file shell script phục vụ test. Các test case phủ rộng các trường hợp như mã hóa cơ bản, xử lý padding và test fail (tamper, wrong key).
 
 ## 7. Logs / Minh chứng
-
-Thư mục `logs/` dùng để nộp minh chứng, ví dụ:
-- ảnh chụp màn hình khi chạy chương trình
-- output của test
-- log thử đúng / sai key / tamper
-- log cho mã hóa nhiều block
+Ảnh minh chứng và log test được lưu trong thư mục `logs/`.
 
 ## 8. Ethics & Safe use
 
@@ -123,7 +95,7 @@ Trước khi nộp, cần có:
 - `tests/` với ít nhất 5 test
 - có negative test cho `tamper` và `wrong key`
 - `logs/` có ít nhất 1 file minh chứng thật
-- không còn dòng `TODO_STUDENT`
+- không còn dòng `TODO`
 
 ## 10. Lưu ý về CI
 
@@ -132,7 +104,7 @@ CI sẽ **không chỉ kiểm tra file có tồn tại** mà còn kiểm tra:
 - các mục bắt buộc trong report
 - sự hiện diện của negative tests
 - có minh chứng trong `logs/`
-- repo **không còn placeholder `TODO_STUDENT`**
+- repo **không còn placeholder `TODO`**
 
 Vì vậy repo starter này sẽ **chưa pass CI** cho tới khi sinh viên hoàn thiện nội dung.
 
